@@ -36,10 +36,7 @@ def privacy_policy():
 @app.route('/webhook/facebook_messenger', methods=['GET', 'POST'])
 def facebook_webhook():
     if request.method == 'POST':
-        try:
-            if not verify_facebook_signature(request.get_data(), request.headers.get('X-Hub-Signature')):
-                abort(403)
-        except:
+        if not verify_facebook_signature(request.get_data(), request.headers.get('X-Hub-Signature')):
             abort(403)
         body = request.get_json()
         if body['object'] == 'page':
