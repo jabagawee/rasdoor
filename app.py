@@ -33,6 +33,19 @@ def privacy_policy():
         'opens this door. This is a private residence, so we want to ' \
         'know who unlocks and locks our door.'
 
+@app.route('/hello/<username>')
+def say_hello(username):
+    return (
+        '<html>' +
+        '<head>' +
+        f'<title>Hello {username}</title>' +
+        '</head>' +
+        '<body>' +
+        '<h1>Hello</h1>' +
+        f'<div>Your name is {username}.</div>' +
+        '</body>' +
+        '</html>')
+
 @app.route('/webhook/facebook_messenger', methods=['GET', 'POST'])
 def facebook_webhook():
     if request.method == 'POST':
