@@ -3,6 +3,7 @@
 import hashlib
 import hmac
 import os
+import shlex
 import subprocess
 
 from flask import Flask, abort, request
@@ -75,7 +76,7 @@ def _run_command_on_pi(cmd):
         '-o', 'StrictHostKeyChecking=no',
         '-i', '/sshkeys/mountedpi/ssh-privatekey',
         'pi@mountedpi',
-        f'"{cmd}"'])
+        cmd])
 
 def lock_august():
     _run_command_on_pi('python3 august.py lock')
