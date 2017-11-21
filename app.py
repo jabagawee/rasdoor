@@ -3,6 +3,7 @@
 import hashlib
 import hmac
 import os
+import subprocess
 
 from flask import Flask, abort, request
 import requests
@@ -69,7 +70,12 @@ def facebook_webhook():
         abort(403)
 
 def _run_command_on_pi(cmd):
-    os.system(f'ssh -o StrictHostKeyChecking=no -i /sshkeys/mountedpi/ssh-privatekey pi@mountedpi "{cmd}"')
+    subprocess.Popen([
+        'ssh',
+        '-o', 'StrictHostKeyChecking=no',
+        '-i', '/sshkeys/mountedpi/ssh-privatekey',
+        'pi@mountedpi',
+        f'"{cmd}"'])
 
 def lock_august():
     _run_command_on_pi('python3 august.py lock')
