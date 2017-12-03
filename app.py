@@ -48,7 +48,8 @@ def facebook_webhook():
                 message = entry['messaging'][0]
                 print(message)
                 sender_id = message['sender']['id']
-                message_text = message['message']['text'].lower()
+                # TODO: handle the case where there's no text field
+                message_text = message['message'].get('text', '').lower()
                 if message_text == 'lock':
                     if sender_id in FACEBOOK_AUTHORIZED_SENDER_IDS:
                         lock_august()
