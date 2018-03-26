@@ -49,12 +49,13 @@ def facebook_webhook():
                 print(message)
                 sender_id = message['sender']['id']
                 # TODO: handle the case where there's no text field
-                message_text = message['message'].get('text', '').lower()
-                if message_text == 'lock':
+                message_text = message.get('message', {}).get('text', '').lower()
+                postback_payload = message.get('postback', {}).get('payload', '')
+                if message_text == 'lock' or postback_payload == 'LOCK_DOOR_PAYLOAD':
                     if sender_id in FACEBOOK_AUTHORIZED_SENDER_IDS:
                         lock_august()
                     send_facebook_message(sender_id, 'Door locked.')
-                elif message_text == 'unlock':
+                elif message_text == 'unlock' or postback_payload == 'UNLOCK_DOOR_PAYLOAD':
                     if sender_id in FACEBOOK_AUTHORIZED_SENDER_IDS:
                         unlock_august()
                         unlock_front()
