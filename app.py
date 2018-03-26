@@ -22,7 +22,7 @@ FACEBOOK_AUTHORIZED_SENDER_IDS = set([
     '1588200337910270',  # Peter
     '1346686395457291',  # Shana
     '1155732571195547',  # Shawn
-    '1904277496279574',  # Temp
+    '1904277496279574',  # Cindy
 ])
 
 @app.route('/')
