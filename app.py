@@ -25,6 +25,10 @@ FACEBOOK_AUTHORIZED_SENDER_IDS = set([
     '1904277496279574',  # Cindy
 ])
 
+GET_STARTED_MESSAGE = \
+    'Welcome to Rasdoor! Rasdoor controls the door to our apartment, so just '\
+    'send us a message to "lock" or "unlock" the door!'
+
 @app.route('/')
 def hello_world():
     return 'Hello World'
@@ -58,6 +62,8 @@ def facebook_webhook():
                         unlock_august()
                         unlock_front()
                     send_facebook_message(sender_id, 'Door unlocked.')
+                elif postback_payload == 'GET_STARTED_PAYLOAD':
+                    send_facebook_message(sender_id, GET_STARTED_MESSAGE)
                 else:
                     send_facebook_message(sender_id, 'Unrecognized command.')
             return 'EVENT_RECEIVED'
